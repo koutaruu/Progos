@@ -63,6 +63,7 @@
     <instance objName="obj_wall2" x="672" y="448" name="inst_80B51E2E" locked="0" code="" scaleX="1.22222220897675" scaleY="1.04999995231628" colour="4294967295" rotation="0"/>
     <instance objName="object4" x="288" y="320" name="inst_6DFC6178" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="object6" x="416" y="256" name="inst_04D969A4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="object6" x="608" y="192" name="inst_1D21906E" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

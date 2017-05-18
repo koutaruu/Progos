@@ -31,7 +31,7 @@ grav = 0.2;
 hsp = 0;
 //vertical speed
 vsp = 0;
-jumpspeed = 7;
+jumpspeed = 5;
 movespeed = 4;
 
 </string>
@@ -72,6 +72,7 @@ hsp = move * movespeed;
 if (vsp &lt; 10) vsp += grav;
 //will add the 0.2 over itself up till 10
 
+
 //jump button
 if (place_meeting (x,y+1,obj_wall))
     {vsp = key_jump * -jumpspeed
@@ -83,11 +84,19 @@ if (place_meeting (x,y+1,obj_wall))
 
 //start slopes code
   // Move up slope
-    if (place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y - 1, obj_wall))
-        {
-        --y;
-        }
+   if (place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; place_meeting(x + sign(hsp), y - 1, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y - 2, obj_wall))
+        y -= 2;
+    else
+  
+      if (place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y - 1, obj_wall))
+            {
+            --y;
+            }
     // Move down slope
+  if (!place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y + 1, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y + 2, obj_wall) &amp;&amp; place_meeting(x + sign(hsp), y + 3, obj_wall))
+        y += 2;
+    else
+      
     if (!place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y + 1, obj_wall) &amp;&amp; place_meeting(x + sign(hsp), y + 2, obj_wall))
         {
         ++y;
@@ -117,7 +126,11 @@ if (place_meeting(x,y+vsp,obj_wall))
 
 y += vsp;
 
-
+//change direction based on where its facing
+if (sign(hsp) != 0)
+    {
+    image_xscale = sign(hsp);
+    }
 
 
 </string>
