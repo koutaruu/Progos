@@ -56,7 +56,7 @@ movespeed = 4;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Get the player's input
+            <string>    //Get the player's input
 key_right = keyboard_check(vk_right);
 //the - means its going to equal a -1 or a 0
 key_left = -keyboard_check(vk_left);
@@ -72,35 +72,43 @@ hsp = move * movespeed;
 if (vsp &lt; 10) vsp += grav;
 //will add the 0.2 over itself up till 10
 
-
 //jump button
 if (place_meeting (x,y+1,obj_wall))
     {vsp = key_jump * -jumpspeed
     }
 
-//establish collission checks
-//horizontal collison
+// Vertical
+repeat(abs(vsp)) {
+    if (!place_meeting(x, y + sign(vsp), obj_wall))
+        y += sign(vsp); 
+    else {
+        vsp = 0;
+        break;
+    }
+}
 
-
-//start slopes code
-  // Move up slope
-   if (place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; place_meeting(x + sign(hsp), y - 1, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y - 2, obj_wall))
+// Horizontal
+repeat(abs(hsp)) {
+// Move up slope
+  if (place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; place_meeting(x + sign(hsp), y - 1, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y - 2, obj_wall))
         y -= 2;
     else
-  
-      if (place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y - 1, obj_wall))
-            {
-            --y;
-            }
+    if (place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y - 1, obj_wall))
+        --y;
+    
     // Move down slope
-  if (!place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y + 1, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y + 2, obj_wall) &amp;&amp; place_meeting(x + sign(hsp), y + 3, obj_wall))
+     if (!place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y + 1, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y + 2, obj_wall) &amp;&amp; place_meeting(x + sign(hsp), y + 3, obj_wall))
         y += 2;
     else
-      
     if (!place_meeting(x + sign(hsp), y, obj_wall) &amp;&amp; !place_meeting(x + sign(hsp), y + 1, obj_wall) &amp;&amp; place_meeting(x + sign(hsp), y + 2, obj_wall))
-        {
-        ++y;
-        } 
+        ++y; 
+    if (!place_meeting(x + sign(hsp), y, obj_wall))
+        x += sign(hsp); 
+    else {
+        hsp = 0;
+        break;
+    }
+}
 //end slope code
 
 
@@ -112,8 +120,13 @@ if (place_meeting(x+hsp,y,obj_wall))
     }
     hsp = 0;
 } 
+/*
+Peter - Unnecessary Code:
+
 //after working all this above code out, now adding the values to our object.  
-x += hsp;
+x += hsp;   this part right here makes you fly off slopes - Peter
+
+
 //vertical collison
 if (place_meeting(x,y+vsp,obj_wall))
 {
@@ -125,6 +138,8 @@ if (place_meeting(x,y+vsp,obj_wall))
 } 
 
 y += vsp;
+*/
+
 
 //change direction based on where its facing
 if (sign(hsp) != 0)
@@ -170,7 +185,7 @@ if (sign(hsp) != 0)
   <PhysicsObjectLinearDamping>0.100000001490116</PhysicsObjectLinearDamping>
   <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
-  <PhysicsObjectAwake>-1</PhysicsObjectAwake>
+  <PhysicsObjectAwake>0</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints>
     <point>0,0</point>
